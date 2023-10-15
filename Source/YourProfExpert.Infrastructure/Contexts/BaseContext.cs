@@ -14,7 +14,7 @@ public abstract class BaseContext : DbContext
     public DbSet<PassedTest> PassedTests { get; set; }
     public DbSet<AvailableTestResult> AvailableTestResults { get; set; }
     public DbSet<Job> Jobs { get; set; }
-    public DbSet<Test> Tests { get; set; }
+    public DbSet<TestInformation> Tests { get; set; }
     public DbSet<User> Users { get; set; }
 
     public BaseContext(DbContextOptions options) : base(options)

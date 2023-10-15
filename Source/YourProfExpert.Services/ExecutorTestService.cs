@@ -50,14 +50,14 @@ public class ExecutorTestService : IExecutorTestService
     {
         var orderId = _userTests[userId].GetResult();
 
-        _testService.SetUserPassTest( userId, _userTests[userId].Test.Title, orderId );
+        _testService.SetUserPassedTest( userId, _userTests[userId].Test.Title, orderId );
     }
 
     public async void SaveResultAsync(long userId)
     {
         var orderId = _userTests[userId].GetResult();
 
-        await _testService.SetUserPassTestAsync( userId, _userTests[userId].Test.Title, orderId );
+        await _testService.SetUserPassedTestAsync( userId, _userTests[userId].Test.Title, orderId );
     }
 
     public void StartTest(long userId, Test test)

@@ -22,12 +22,12 @@ public static class KlimovExtensions
     /// <param name="baseContext"></param>
     public static async Task AddKlimovTestToContextAsync(this BaseContext baseContext)
     {
-        Test? test = await baseContext.Tests.SingleOrDefaultAsync(t => t.Title == KlimovTestData.KLIMOV_TITLE);
+        TestInformation? test = await baseContext.Tests.SingleOrDefaultAsync(t => t.Title == KlimovTestData.KLIMOV_TITLE);
 
         // Нет теста Климова в таблице Tests
         if ( test is null )
         {
-            test = new Test();
+            test = new TestInformation();
 
             test.Title = KlimovTestData.KLIMOV_TITLE;
 
