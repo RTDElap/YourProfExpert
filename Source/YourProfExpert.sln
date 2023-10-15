@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourProfExpert.Infrastructure", "YourProfExpert.Infrastructure\YourProfExpert.Infrastructure.csproj", "{DCEF111C-B5BB-4EE5-A398-315CB6E16884}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourProfExpert.Core", "YourProfExpert.Core\YourProfExpert.Core.csproj", "{276B4EE3-EAD1-4E82-BDBE-B87B9D5C7139}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourProfExpert.TelegramBot", "YourProfExpert.TelegramBot\YourProfExpert.TelegramBot.csproj", "{0184FEC7-2484-416F-AB7C-33608549CB25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{DCEF111C-B5BB-4EE5-A398-315CB6E16884}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCEF111C-B5BB-4EE5-A398-315CB6E16884}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCEF111C-B5BB-4EE5-A398-315CB6E16884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276B4EE3-EAD1-4E82-BDBE-B87B9D5C7139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{276B4EE3-EAD1-4E82-BDBE-B87B9D5C7139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{276B4EE3-EAD1-4E82-BDBE-B87B9D5C7139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{276B4EE3-EAD1-4E82-BDBE-B87B9D5C7139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0184FEC7-2484-416F-AB7C-33608549CB25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0184FEC7-2484-416F-AB7C-33608549CB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0184FEC7-2484-416F-AB7C-33608549CB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0184FEC7-2484-416F-AB7C-33608549CB25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

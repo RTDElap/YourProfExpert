@@ -13,6 +13,7 @@ public abstract class BaseContext : DbContext
 {
     public DbSet<PassedTest> PassedTests { get; set; }
     public DbSet<PossibleTestResult> PossibleTestResults { get; set; }
+    public DbSet<Job> Jobs { get; set; }
     public DbSet<Test> Tests { get; set; }
     public DbSet<User> Users { get; set; }
 
