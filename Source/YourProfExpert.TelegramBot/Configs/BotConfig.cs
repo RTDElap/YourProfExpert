@@ -26,4 +26,19 @@ public class BotConfig
 
         InlineKeyboardMarkups = new Dictionary<string, InlineKeyboardMarkup>();
     }
+
+    private void InitTextMessages()
+    {
+        
+    }
+
+    private void InitReplyKeyboardMarkups()
+    {
+        
+    }
+
+    private void InitInlineKeyboardMarkups()
+    {
+        
+    }
 }
