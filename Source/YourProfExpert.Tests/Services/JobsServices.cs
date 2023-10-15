@@ -40,6 +40,7 @@ public class JobsServiceTest
         IJobsService jobsService = new JobsService(jobs);
 
         jobsService.OpenJobs(userId);
+        jobsService.NextPage(userId);
         
         int count = jobsService.GetJobsFromPage(userId).Count();
 
@@ -55,6 +56,7 @@ public class JobsServiceTest
         IJobsService jobsService = new JobsService(jobs, 1);
 
         jobsService.OpenJobs(userId);
+        jobsService.NextPage(userId);
         
         int count = jobsService.GetJobsFromPage(userId).Count();
 
@@ -70,7 +72,8 @@ public class JobsServiceTest
         IJobsService jobsService = new JobsService(jobs, 1);
 
         jobsService.OpenJobs(userId);
-        
+        jobsService.NextPage(userId);
+
         int countOfPages = 0;
 
         do
@@ -91,6 +94,7 @@ public class JobsServiceTest
         IJobsService jobsService = new JobsService(jobs, 2);
 
         jobsService.OpenJobs(userId);
+        jobsService.NextPage(userId);
         
         int countOfPages = 0;
 
@@ -112,6 +116,7 @@ public class JobsServiceTest
         IJobsService jobsService = new JobsService(jobs, 2);
 
         jobsService.OpenJobs(userId);
+        jobsService.NextPage(userId);
         
         int countOfPages = 0;
 

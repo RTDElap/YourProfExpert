@@ -6,17 +6,22 @@ public abstract class TestExecutor
 {
     protected virtual IList<Question> Questions { get => Test.Questions; }
 
-    public Question CurrentQuestion { get => Questions[_currentIndex]; }
+    public Question CurrentQuestion { get => Questions[CurrentIndex]; }
 
     public IList<Answer> CurrentAnswers { get => CurrentQuestion.Answers; }
 
-    protected int _currentIndex = 0;
+    public int CurrentIndex { get; protected set;} = 0;
 
     public readonly Test Test;
 
     public TestExecutor(Test test)
     {
         Test = test;
+    }
+
+    public virtual bool MoveNext()
+    {
+        return ++CurrentIndex <= Questions.Count;
     }
 
     public virtual void SelectAnswer(int index)
