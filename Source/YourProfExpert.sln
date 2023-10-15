@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourProfExpert.Core", "Your
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourProfExpert.TelegramBot", "YourProfExpert.TelegramBot\YourProfExpert.TelegramBot.csproj", "{0184FEC7-2484-416F-AB7C-33608549CB25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourProfExpert.Services", "YourProfExpert.Services\YourProfExpert.Services.csproj", "{E20A302B-80FE-4F8E-A35F-215F382E4725}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourProfExpert.Tests", "YourProfExpert.Tests\YourProfExpert.Tests.csproj", "{E557AF58-B994-40DA-9B62-4383E3433C37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{0184FEC7-2484-416F-AB7C-33608549CB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0184FEC7-2484-416F-AB7C-33608549CB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0184FEC7-2484-416F-AB7C-33608549CB25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E20A302B-80FE-4F8E-A35F-215F382E4725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E20A302B-80FE-4F8E-A35F-215F382E4725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E20A302B-80FE-4F8E-A35F-215F382E4725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E20A302B-80FE-4F8E-A35F-215F382E4725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E557AF58-B994-40DA-9B62-4383E3433C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E557AF58-B994-40DA-9B62-4383E3433C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E557AF58-B994-40DA-9B62-4383E3433C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E557AF58-B994-40DA-9B62-4383E3433C37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
