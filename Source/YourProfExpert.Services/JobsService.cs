@@ -33,8 +33,7 @@ public class JobsService : IJobsService
 
     public void OpenJobs(long userId)
     {
-        // -1, поскольку необходимо вызывать метод NextJob
-        _usersPages[userId] = -1;
+        _usersPages[userId] = 0;
     }
 
     public void CloseJobs(long userId)
