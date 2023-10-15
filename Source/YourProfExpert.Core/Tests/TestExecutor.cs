@@ -4,9 +4,9 @@ namespace YourProfExpert.Core.Tests;
 
 public abstract class TestExecutor
 {
-    protected virtual IList<Question> Questions { get => Test.Questions; }
+    protected virtual IList<Question> _questions { get; set; }
 
-    public Question CurrentQuestion { get => Questions[CurrentIndex]; }
+    public Question CurrentQuestion { get => _questions[CurrentIndex]; }
 
     public IList<Answer> CurrentAnswers { get => CurrentQuestion.Answers; }
 
@@ -17,16 +17,18 @@ public abstract class TestExecutor
     public TestExecutor(Test test)
     {
         Test = test;
+
+        _questions = new List<Question>();
     }
 
     public virtual bool MoveNext()
     {
-        return ++CurrentIndex <= Questions.Count;
+        return ++CurrentIndex <= _questions.Count;
     }
 
     public virtual bool CanMoveNext()
     {
-        return CurrentIndex <= Questions.Count;
+        return CurrentIndex <= _questions.Count;
     }
 
     public virtual void SelectAnswer(int index)
