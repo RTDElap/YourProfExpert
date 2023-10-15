@@ -16,7 +16,7 @@ public class AvailableTestResult
     /// <value></value>
     public int OrderId { get; set; }
 
-    public Test Test { get; set; }
+    public TestInformation Test { get; set; }
 
     public string Name { get; set; }
 

@@ -1,6 +1,7 @@
 
 
 using YourProfExpert.Core.Tests;
+using YourProfExpert.Infrastructure.Models;
 
 namespace YourProfExpert.Core.Services;
 
@@ -18,13 +19,13 @@ public interface ITestService
 
     // Sync методы
 
-    public void SetUserPassTest(long userId, string testTitle, int orderId);
+    public void SetUserPassedTest(long userId, string testTitle, int orderId);
 
-    public bool GetPassUserTest(long userId, string testTitle);
+    public PassedTest? GetUserPassedTest(long userId, string testTitle);
 
     // Async методы
 
-    public Task SetUserPassTestAsync(long userId, string testTitle, int orderId);
+    public Task SetUserPassedTestAsync(long userId, string testTitle, int orderId);
 
-    public Task<bool> GetPassUserTestAsync(long userId, string testTitle);
+    public Task<PassedTest?> GetUserPassedTestAsync(long userId, string testTitle);
 }

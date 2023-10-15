@@ -5,7 +5,7 @@ namespace YourProfExpert.Infrastructure.Models;
 /// <summary>
 /// Доступный тест для прохождения
 /// </summary>
-public class Test
+public class TestInformation
 {
     public int Id { get; set; }
 

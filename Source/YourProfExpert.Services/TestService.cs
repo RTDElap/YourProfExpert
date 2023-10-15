@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using YourProfExpert.Core.Services;
 using YourProfExpert.Core.Tests;
 using YourProfExpert.Infrastructure.Contexts.Creators.Interfaces;
+using YourProfExpert.Infrastructure.Models;
 
 namespace YourProfExpert.Services;
 
@@ -33,7 +34,7 @@ public class TestService : ITestService
         return _tests.Single( t => t.Title == testTitle );
     }
 
-    public bool GetPassUserTest(long userId, string testTitle)
+    public PassedTest? GetUserPassedTest(long userId, string testTitle)
     {
         using ( var context = _creator.CreateContext() )
         {
@@ -43,11 +44,11 @@ public class TestService : ITestService
                 .Include(ps => ps.Result.Test)
                 .SingleOrDefault( ps => ps.Result.Test.Title == testTitle && ps.User.Id == userId );
 
-            return passedTest != null;
+            return passedTest;
         }
     }
 
-    public async Task<bool> GetPassUserTestAsync(long userId, string testTitle)
+    public async Task<PassedTest?> GetUserPassedTestAsync(long userId, string testTitle)
     {
         using ( var context = _creator.CreateContext() )
         {
@@ -57,11 +58,11 @@ public class TestService : ITestService
                 .Include(ps => ps.Result.Test)
                 .SingleOrDefaultAsync( ps => ps.Result.Test.Title == testTitle && ps.User.Id == userId );
 
-            return passedTest != null;
+            return passedTest;
         }
     }
 
-    public void SetUserPassTest(long userId, string testTitle, int orderId)
+    public void SetUserPassedTest(long userId, string testTitle, int orderId)
     {
         using ( var context = _creator.CreateContext() )
         {
@@ -101,7 +102,7 @@ public class TestService : ITestService
         }
     }
 
-    public async Task SetUserPassTestAsync(long userId, string testTitle, int orderId)
+    public async Task SetUserPassedTestAsync(long userId, string testTitle, int orderId)
     {
         using ( var context = _creator.CreateContext() )
         {
