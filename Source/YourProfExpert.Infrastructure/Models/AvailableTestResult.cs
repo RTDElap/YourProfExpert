@@ -6,7 +6,7 @@ namespace YourProfExpert.Infrastructure.Models;
 /// <summary>
 /// Доступные результаты тестирования
 /// </summary>
-public class PossibleTestResult
+public class AvailableTestResult
 {
     public int Id { get; set; }
 
@@ -18,7 +18,7 @@ public class PossibleTestResult
 
     public Test Test { get; set; }
 
-    public string Title { get; set; }
+    public string Name { get; set; }
 
     public string Description { get; set; }
 }

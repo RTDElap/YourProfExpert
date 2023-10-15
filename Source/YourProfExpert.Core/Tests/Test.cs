@@ -1,5 +1,4 @@
 
-using YourProfExpert.Core.Tests;
 
 namespace YourProfExpert.Core.Tests;
 

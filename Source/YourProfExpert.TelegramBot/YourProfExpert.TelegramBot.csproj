@@ -11,4 +11,10 @@
     <PackageReference Include="Telegram.Bot" Version="19.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YourProfExpert.Core\YourProfExpert.Core.csproj" />
+    <ProjectReference Include="..\YourProfExpert.Infrastructure\YourProfExpert.Infrastructure.csproj" />
+    <ProjectReference Include="..\YourProfExpert.TestOfKlimov\YourProfExpert.TestOfKlimov.csproj" />
+  </ItemGroup>
+
 </Project>

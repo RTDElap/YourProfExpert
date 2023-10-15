@@ -24,6 +24,11 @@ public abstract class TestExecutor
         return ++CurrentIndex <= Questions.Count;
     }
 
+    public virtual bool CanMoveNext()
+    {
+        return CurrentIndex <= Questions.Count;
+    }
+
     public virtual void SelectAnswer(int index)
     {
         CurrentQuestion.SelectAnswer(index);

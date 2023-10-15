@@ -12,7 +12,7 @@ namespace YourProfExpert.Infrastructure.Contexts;
 public abstract class BaseContext : DbContext
 {
     public DbSet<PassedTest> PassedTests { get; set; }
-    public DbSet<PossibleTestResult> PossibleTestResults { get; set; }
+    public DbSet<AvailableTestResult> AvailableTestResults { get; set; }
     public DbSet<Job> Jobs { get; set; }
     public DbSet<Test> Tests { get; set; }
     public DbSet<User> Users { get; set; }

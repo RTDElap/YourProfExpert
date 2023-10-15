@@ -11,7 +11,5 @@ public class PassedTest
 
     public User User { get; set; }
 
-    public Test Test { get; set; }
-
-    public PossibleTestResult Result { get; set; }
+    public AvailableTestResult Result { get; set; }
 }

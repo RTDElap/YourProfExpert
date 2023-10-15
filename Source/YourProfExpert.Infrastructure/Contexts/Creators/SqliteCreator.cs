@@ -9,7 +9,7 @@ namespace YourProfExpert.Infrastructure.Contexts.Creators;
 /// <summary>
 /// Фабричный метод создания Sqlite контекста
 /// </summary>
-public class SqliteCreator : ICreator
+public class SqliteCreator : IContextCreator
 {
     private readonly DbContextOptions _options;
 
