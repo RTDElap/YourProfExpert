@@ -24,4 +24,6 @@ public class UpdateHandler : IUpdateHandler
     {
         await _handler.HandleAsync(botClient, update, cancellationToken);
     }
+
+    public static UpdateHandler Create(Handler handler) => new UpdateHandler(handler);
 }

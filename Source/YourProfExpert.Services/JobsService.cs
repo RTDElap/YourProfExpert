@@ -1,6 +1,7 @@
 using System;
 
 using YourProfExpert.Core.Services;
+using YourProfExpert.Core.Types;
 using YourProfExpert.Infrastructure.Models;
 
 namespace YourProfExpert.Services;

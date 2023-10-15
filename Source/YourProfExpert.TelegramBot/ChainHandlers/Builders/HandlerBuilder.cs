@@ -30,4 +30,6 @@ public class HandlerBuilder
 
         return _rootHandler;
     }
+
+    public static HandlerBuilder Create() => new HandlerBuilder();
 }
