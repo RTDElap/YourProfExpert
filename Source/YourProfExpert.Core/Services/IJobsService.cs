@@ -12,6 +12,8 @@ namespace YourProfExpert.Core.Services;
 /// </summary>
 public interface IJobsService
 {
+    public void SetJobs(Job[] jobs);
+
     public void OpenJobs(long userId);
 
     public void CloseJobs(long userId);

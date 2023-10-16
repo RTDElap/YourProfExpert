@@ -1,3 +1,5 @@
+#nullable disable
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
@@ -27,6 +29,8 @@ internal static partial class Program
         );
 
         services.Configure<ITestService>( x => x.AddKlimovTest() );
+
+        services.Configure<IJobsService>( x => x.SetJobs( root.GetValue<Job[]>("Jobs") ));
 
         IServiceProvider serviceProvider = services.BuildServiceProvider();
     

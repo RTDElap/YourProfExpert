@@ -1,5 +1,7 @@
 
 
+using YourProfExpert.Core.Types;
+
 namespace YourProfExpert.Tests.Services;
 
 public class JobsServiceTest
