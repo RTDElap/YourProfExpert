@@ -9,14 +9,18 @@ namespace YourProfExpert.Infrastructure.Contexts.Creators;
 /// <summary>
 /// Фабричный метод создания Sqlite контекста
 /// </summary>
-public class SqliteCreator : IContextCreator
+public class SqliteContextCreator : IContextCreator
 {
     private readonly DbContextOptions _options;
 
-    public SqliteCreator(DbContextOptions options) =>
+    public SqliteContextCreator(DbContextOptions options) =>
         _options = options;
 
-    public SqliteCreator( Action<DbContextOptionsBuilder> builderAction )
+    /// <summary>
+    /// Конструктор контекста с конфигурированием через лямбду
+    /// </summary>
+    /// <param name="builderAction">Лямбда с настройкой контекста</param>
+    public SqliteContextCreator( Action<DbContextOptionsBuilder> builderAction )
     {
         var builder = new DbContextOptionsBuilder();
 
@@ -25,7 +29,11 @@ public class SqliteCreator : IContextCreator
         _options = builder.Options;
     }
 
-    public SqliteCreator( string connectionString )
+    /// <summary>
+    /// Конструктор контекста, подключаемый по connectionString
+    /// </summary>
+    /// <param name="connectionString"></param>
+    public SqliteContextCreator( string connectionString )
     {
         var builder = new DbContextOptionsBuilder();
 

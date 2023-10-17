@@ -11,10 +11,10 @@ namespace YourProfExpert.Infrastructure.Contexts;
 /// </summary>
 public abstract class BaseContext : DbContext
 {
-    public DbSet<PassedTest> PassedTests { get; set; }
-    public DbSet<AvailableTestResult> AvailableTestResults { get; set; }
-    public DbSet<TestInformation> Tests { get; set; }
-    public DbSet<User> Users { get; set; }
+    public virtual DbSet<PassedTest> PassedTests { get; set; }
+    public virtual DbSet<AvailableTestResult> AvailableTestResults { get; set; }
+    public virtual DbSet<TestInformation> Tests { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     public BaseContext(DbContextOptions options) : base(options)
     { }

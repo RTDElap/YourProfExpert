@@ -11,7 +11,7 @@ public class AvailableTestResult
     public int Id { get; set; }
 
     /// <summary>
-    /// Эта переменная отвечает за порядковый номер для одного конкретного теста 
+    /// Эта переменная отвечает за порядковый номер результата для одного конкретного теста 
     /// </summary>
     /// <value></value>
     public int OrderId { get; set; }

@@ -2,6 +2,9 @@
 
 namespace YourProfExpert.Core.Tests.Builders;
 
+/// <summary>
+/// Вспомогательный класс для построения ответов на вопрос
+/// </summary>
 public class AnswerBuilder
 {
     private readonly Question question;
