@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\YourProfExpert.Core\YourProfExpert.Core.csproj" />
     <ProjectReference Include="..\YourProfExpert.Services\YourProfExpert.Services.csproj" />
+    <ProjectReference Include="..\YourProfExpert.TestOfKlimov\YourProfExpert.TestOfKlimov.csproj" />
   </ItemGroup>
 
 </Project>

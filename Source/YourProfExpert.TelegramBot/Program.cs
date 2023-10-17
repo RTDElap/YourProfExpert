@@ -7,6 +7,9 @@ using YourProfExpert.Core.Services;
 using YourProfExpert.Core.Types;
 using YourProfExpert.Infrastructure.Contexts.Creators.Interfaces;
 using YourProfExpert.KlimovTest;
+
+using YourProfExpert.Auxiliary;
+
 using YourProfExpert.TelegramBot.ChainHandlers;
 using YourProfExpert.TelegramBot.ChainHandlers.Builders;
 using YourProfExpert.TelegramBot.Configs;
@@ -15,25 +18,43 @@ namespace YourProfExpert.TelegramBot;
 
 internal static partial class Program
 {
-    static async Task Main()
+    static IServiceProvider RegisterAndConfigureServices(IConfigurationRoot root)
     {
         IServiceCollection services = new ServiceCollection();
-        var root = GetConfigurationRoot();
 
         RegisterDatabaseAsync(services, root, "Sqlite");
         RegisterConfigs(services, root);
         RegisterServices(services);
 
-        services.Configure<IContextCreator>( 
-            async x => await x.CreateContext().AddKlimovTestToContextAsync() 
+        services.Configure<IContextCreator>
+        ( 
+            async creator => 
+            {
+                await creator.CreateContext().AddKlimovTestToContextAsync();
+            }
         );
 
-        services.Configure<ITestService>( x => x.AddKlimovTest() );
+        services.Configure<ITestService>
+        ( 
+            testService => 
+            {
+                testService.AddKlimovTest();
+            }
+        );
 
-        services.Configure<IJobsService>( x => x.SetJobs( root.GetValue<Job[]>("Jobs") ));
+        services.Configure<IJobsService>
+        ( 
+            jobsService => 
+            {
+                jobsService.SetJobs( root.GetValue<Job[]>("Jobs") );
+            }
+        );
 
-        IServiceProvider serviceProvider = services.BuildServiceProvider();
-    
+        return services.BuildServiceProvider();
+    }
+
+    static async void ConfigureAndStartBot(IServiceProvider serviceProvider)
+    {
         var commands = CreateCommands(serviceProvider);
 
         var handlerChain = HandlerBuilder
@@ -43,21 +64,31 @@ internal static partial class Program
 
         var updateHandler = UpdateHandler.Create( handlerChain );
 
-        BotConfig? botConfig = serviceProvider.GetService<BotConfig>();
-    
-        if ( botConfig is null ) throw new ArgumentNullException("BotConfig is null");
+        BotConfig botConfig = serviceProvider.GetService<BotConfig>();
 
         ITelegramBotClient botClient = new TelegramBotClient( botConfig.KeyApi );
 
-        var me = await botClient.GetMeAsync();
+        var bot = await botClient.GetMeAsync();
 
-        Console.WriteLine($"Запущен бот: {me.Username}");
-
-        botClient.StartReceiving
+        Console.WriteLine
         (
-            updateHandler: updateHandler.HandleUpdateAsync,
-            pollingErrorHandler: updateHandler.HandlePollingErrorAsync
+            $"Запущен бот: @{bot.Username}\nНазвание: {Helper.GetFullNameUser(bot)}"
         );
+
+        botClient
+            .StartReceiving
+            (
+                updateHandler: updateHandler
+            );
+    }
+
+    static void Main()
+    {
+        var root = GetConfigurationRoot();
+
+        IServiceProvider serviceProvider = RegisterAndConfigureServices(root);
+    
+        ConfigureAndStartBot(serviceProvider);
 
         Console.ReadLine();
     }

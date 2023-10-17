@@ -4,7 +4,7 @@
 namespace YourProfExpert.Infrastructure.Models;
 
 /// <summary>
-/// Доступные результаты тестирования
+/// Описывает доступные результаты прохождения теста
 /// </summary>
 public class AvailableTestResult
 {

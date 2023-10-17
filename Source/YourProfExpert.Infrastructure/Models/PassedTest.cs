@@ -3,7 +3,7 @@
 namespace YourProfExpert.Infrastructure.Models;
 
 /// <summary>
-/// Пройденный пользователем тест
+/// Описывает результат прохождения теста пользователем
 /// </summary>
 public class PassedTest
 {

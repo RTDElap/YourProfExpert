@@ -3,7 +3,7 @@
 namespace YourProfExpert.Infrastructure.Models;
 
 /// <summary>
-/// Доступный тест для прохождения
+/// Описывает тест в базе данных.
 /// </summary>
 public class TestInformation
 {
