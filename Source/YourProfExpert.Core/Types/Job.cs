@@ -5,7 +5,7 @@ namespace YourProfExpert.Core.Types;
 /// <summary>
 /// Представляет запись специальности
 /// </summary>
-public class Job
+public record Job
 {
     public string Name { get; set; }
 

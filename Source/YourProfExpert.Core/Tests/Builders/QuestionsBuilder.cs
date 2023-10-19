@@ -11,9 +11,9 @@ public class QuestionsBuilder
 
     private Question? currentQuestion;
 
-    public QuestionsBuilder(IList<Question> questions)
+    public QuestionsBuilder(IList<Question>? questions = null)
     {
-        this.questions = questions;
+        this.questions = questions ?? new List<Question>();
 
         currentQuestion = null;
     }

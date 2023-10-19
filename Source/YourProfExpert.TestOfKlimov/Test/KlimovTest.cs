@@ -3,7 +3,7 @@ using YourProfExpert.Core.Tests.Builders;
 
 namespace YourProfExpert.KlimovTest;
 
-public class KlimovTest : Test
+public class KlimovTest : FunctionalTest
 {
     private readonly Random _random;
 

@@ -49,9 +49,8 @@ public interface IJobsService
     /// <summary>
     /// Возвращает общее количество страниц
     /// </summary>
-    /// <param name="userId">Пользователь</param>
     /// <returns>Количество</returns>
-    public int CountOfPages(long userId);
+    public int CountOfPages();
 
     /// <summary>
     /// Определение существования страницы для пользователя
