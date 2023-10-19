@@ -3,9 +3,9 @@
 namespace YourProfExpert.Core.Types;
 
 /// <summary>
-/// Представляет запись специальности
+/// Представляет запись профессии
 /// </summary>
-public record Job
+public record Profession
 {
     public string Name { get; set; }
 

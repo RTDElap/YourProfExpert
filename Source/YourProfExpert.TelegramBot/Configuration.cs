@@ -32,7 +32,7 @@ internal static partial class Program
 
         if ( connectionString is null ) throw new ArgumentNullException("BotConfig is null");
 
-        IContextCreator contextCreator = new SqliteCreator
+        IContextCreator contextCreator = new SqliteContextCreator
             (opt => opt.UseSqlite( connectionString ));
 
         container.AddSingleton(contextCreator);
@@ -49,10 +49,10 @@ internal static partial class Program
 
     internal static void RegisterServices(IServiceCollection container)
     {
-        container.AddSingleton<IJobsService, JobsService>();
+        container.AddSingleton<IProfessionsService, ProfessionsService>();
 
         container.AddSingleton<ITestService, TestService>();
-        container.AddSingleton<IExecutorTestService, ExecutorTestService>();
+        container.AddSingleton<IExecutorTestService, Ex>();
     }
 
     internal static (Dictionary<string, IRunnable> MessageCommands, Dictionary<string, IRunnable> callbackCommands) CreateCommands(IServiceProvider container)

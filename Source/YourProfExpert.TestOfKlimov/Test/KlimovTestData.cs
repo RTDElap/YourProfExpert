@@ -1,6 +1,6 @@
 
 
-namespace YourProfExpert.KlimovTest;
+namespace YourProfExpert.TestOfKlimov;
 
 /// <summary>
 /// Вспомогательный класс с описанием и кучей текста

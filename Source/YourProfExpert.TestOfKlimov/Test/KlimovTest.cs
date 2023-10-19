@@ -1,7 +1,6 @@
 using YourProfExpert.Core.Tests;
-using YourProfExpert.Core.Tests.Builders;
 
-namespace YourProfExpert.KlimovTest;
+namespace YourProfExpert.TestOfKlimov;
 
 public class KlimovTest : FunctionalTest
 {
@@ -21,13 +20,4 @@ public class KlimovTest : FunctionalTest
     {
         return new KlimovTestExecutor( new KlimovTest(_random) );
     }
-}
-
-internal enum TypeKlimov
-{
-    Nature,
-    Technique,
-    SignSystem,
-    ArtisticImage,
-    Man
 }

@@ -5,28 +5,28 @@ using YourProfExpert.Core.Types;
 
 namespace YourProfExpert.Services;
 
-public class JobsService : IJobsService
+public class ProfessionsService : IProfessionsService
 {
     // long = int, userId = текущая страница
     private readonly IDictionary<long, int> _usersPages;
-    private readonly int _jobsPerPage;
+    private readonly int _ProfessionsPerPage;
 
-    private Job[] _jobs;
+    private Profession[]? _Professions;
 
-    public JobsService(int jobsPerPage = 5)
+    public ProfessionsService(int ProfessionsPerPage = 5)
     {
         _usersPages = new Dictionary<long, int>();
-        _jobsPerPage = jobsPerPage;
+        _ProfessionsPerPage = ProfessionsPerPage;
     }
  
-    public void CloseJobs(long userId)
+    public void ClosePage(long userId)
     {
         _usersPages.Remove(userId);
     }
 
     public int CountOfPages()
     {
-        double countOfPages = (double) _jobs.Length / _jobsPerPage;
+        double countOfPages = (double) _Professions.Length / _ProfessionsPerPage;
 
         // Если деление целочисленно, то нужно вернуть результат деления
         // Если нет, то вернуть инкрементированное значение
@@ -35,14 +35,14 @@ public class JobsService : IJobsService
         return (int) countOfPages + 1;
     }
 
-    public IEnumerable<Job> GetJobsFromPage(long userId)
+    public IEnumerable<Profession> GetProfessionsFromPage(long userId)
     {
-        return _jobs
-            .Skip( _jobsPerPage * _usersPages[userId] )
-            .Take( _jobsPerPage );
+        return _Professions
+            .Skip( _ProfessionsPerPage * _usersPages[userId] )
+            .Take( _ProfessionsPerPage );
     }
 
-    public bool IsUserOpenJobs(long userId)
+    public bool IsUserOpenPage(long userId)
     {
         return _usersPages.ContainsKey(userId);
     }
@@ -57,7 +57,7 @@ public class JobsService : IJobsService
         return true;
     }
 
-    public void OpenJobs(long userId)
+    public void OpenPage(long userId)
     {
         _usersPages[userId] = 0;
     }
@@ -71,8 +71,27 @@ public class JobsService : IJobsService
         return true;
     }
 
-    public void SetJobs(Job[] jobs)
+    public Profession SelectProfession(long userId, int indexOfProfession)
     {
-        _jobs = jobs;
+        return GetProfessionsFromPage(userId).ElementAt(indexOfProfession);
+    }
+
+    public void SetProfessions(Profession[] Professions)
+    {
+        _Professions = Professions;
+    }
+
+    public bool TrySelectProfession(long userId, int indexOfProfession, out Profession? Profession)
+    {
+        if ( indexOfProfession < 0 || indexOfProfession < _ProfessionsPerPage - 1 )
+        {
+            Profession = null;
+
+            return false;
+        }
+
+        Profession = SelectProfession(userId, indexOfProfession);
+
+        return true;
     }
 }

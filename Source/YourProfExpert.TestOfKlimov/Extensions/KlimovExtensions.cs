@@ -5,10 +5,35 @@ using YourProfExpert.Core.Services;
 using YourProfExpert.Infrastructure.Contexts;
 using YourProfExpert.Infrastructure.Models;
 
-namespace YourProfExpert.KlimovTest;
+namespace YourProfExpert.TestOfKlimov;
 
 public static class KlimovExtensions
 {
+    private static async Task<TestInformation> AddTestInformationToDatabase(BaseContext context)
+    {
+        var test = new TestInformation()
+        {
+            Title = KlimovTestData.KLIMOV_TITLE
+        };
+
+        await context.Tests.AddAsync( test );
+
+        return test;
+    }
+
+    private static async Task<bool> IsAvailableResultExists(BaseContext context, string name)
+    {
+        return await context
+                .AvailableTestResults
+                .SingleOrDefaultAsync( r => r.Name == name ) != null;
+    }
+
+    /// <summary>
+    /// Добавляет в ITestService тест Климова, что делает его доступным для прохождения
+    /// </summary>
+    /// <param name="testService">Любой объект типа TestService</param>
+    /// <param name="random">Объект Random для случайного выбора вопроса</param>
+    /// <returns>Объект, к которому был применен</returns>
     public static ITestService AddKlimovTest(this ITestService testService, Random? random = null)
     {
         testService.AddTest( new KlimovTest(random) );
@@ -19,37 +44,31 @@ public static class KlimovExtensions
     /// <summary>
     /// Добавляет в базу данных данные теста, если это необходимо
     /// </summary>
-    /// <param name="baseContext"></param>
-    public static async Task AddKlimovTestToContextAsync(this BaseContext baseContext)
+    /// <param name="context"></param>
+    public static async Task AddKlimovTest(this BaseContext context)
     {
-        TestInformation? test = await baseContext.Tests.SingleOrDefaultAsync(t => t.Title == KlimovTestData.KLIMOV_TITLE);
+        TestInformation? test = 
+            await context.Tests.SingleOrDefaultAsync
+            (   
+                t => t.Title == KlimovTestData.KLIMOV_TITLE
+            );
 
-        // Нет теста Климова в таблице Tests
         if ( test is null )
-        {
-            test = new TestInformation();
-
-            test.Title = KlimovTestData.KLIMOV_TITLE;
-
-            await baseContext.Tests.AddAsync( test );
-        }
+            test = await AddTestInformationToDatabase(context);
 
         var klimovData = new KlimovTestData();
+        int index = 0;
 
-        foreach ( var (availableResult, index) in Enumerable.Zip(klimovData.AvailableResults, Enumerable.Range(1, KlimovTestData.RESULTS_COUNT) ) )
+        foreach ( var availableResult in klimovData.AvailableResults )
         {
-            var result = await baseContext
-                .AvailableTestResults
-                .SingleOrDefaultAsync( r => r.Name == availableResult.Name );
-        
-            if ( result is null )
+            if ( ! await IsAvailableResultExists(context, availableResult.Name ) )
             {
-                await baseContext.AvailableTestResults.AddAsync
+                await context.AvailableTestResults.AddAsync
                 (
                     new AvailableTestResult()
                     {
                         Test = test,
-                        OrderId = index,
+                        OrderId = ++index,
                         Name = availableResult.Name,
                         Description = availableResult.Description
                     }
@@ -57,6 +76,6 @@ public static class KlimovExtensions
             }
         }
 
-        await baseContext.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 }

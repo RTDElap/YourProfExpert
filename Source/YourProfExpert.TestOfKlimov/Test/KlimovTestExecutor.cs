@@ -3,7 +3,7 @@
 using YourProfExpert.Core.Tests;
 using YourProfExpert.Core.Tests.Builders;
 
-namespace YourProfExpert.KlimovTest;
+namespace YourProfExpert.TestOfKlimov;
 
 public class KlimovTestExecutor : TestExecutor
 {
@@ -133,4 +133,13 @@ public class KlimovTestExecutor : TestExecutor
     {
         return Array.IndexOf(_scores, _scores.Max()) + 1;
     }
+}
+
+internal enum TypeKlimov
+{
+    Nature,
+    Technique,
+    SignSystem,
+    ArtisticImage,
+    Man
 }
