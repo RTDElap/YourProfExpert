@@ -16,6 +16,9 @@ public abstract class BaseContext : DbContext
     public virtual DbSet<TestInformation> Tests { get; set; }
     public virtual DbSet<User> Users { get; set; }
 
+    public BaseContext()
+    { }
+
     public BaseContext(DbContextOptions options) : base(options)
     { }
 

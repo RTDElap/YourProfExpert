@@ -39,7 +39,8 @@ public interface ITestService
     /// <param name="userId">Пользователь</param>
     /// <param name="testTitle">Заголовок теста</param>
     /// <param name="orderId">Порядковый номер результата теста</param>
-    public void SetUserPassedTest(long userId, string testTitle, int orderId);
+    /// <returns>Результат выполнения</returns>
+    public bool TrySetUserPassedTest(long userId, string testTitle, int orderId);
 
     /// <summary>
     /// Возвращает результат пройденного теста из базы данных
@@ -57,7 +58,8 @@ public interface ITestService
     /// <param name="userId">Пользователь</param>
     /// <param name="testTitle">Заголовок теста</param>
     /// <param name="orderId">Порядковый номер результата теста</param>
-    public Task SetUserPassedTestAsync(long userId, string testTitle, int orderId, CancellationToken token);
+    /// <returns>Результат выполнения</returns>
+    public Task<bool> TrySetUserPassedTestAsync(long userId, string testTitle, int orderId, CancellationToken token);
 
     /// <summary>
     /// Возвращает результат пройденного теста из базы данных
