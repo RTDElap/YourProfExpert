@@ -56,7 +56,7 @@ public abstract class TestExecutor
     /// <returns>Флаг, указывающий на возможность дальнейшего перехода</returns>
     public virtual bool CanMoveNext()
     {
-        return CurrentIndex <= _questions.Count;
+        return CurrentIndex < _questions.Count;
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public abstract class TestExecutor
     /// <returns>Флаг, указывающий на нахождение индекса в допустимом диапазоне</returns>
     public virtual bool TrySelectAnswer(int index)
     {
-        if ( index < 0 || index > CurrentAnswers.Count() ) return false;
+        if ( index < 0 || index >= CurrentAnswers.Count() ) return false;
 
         CurrentQuestion.SelectAnswer(index);
 

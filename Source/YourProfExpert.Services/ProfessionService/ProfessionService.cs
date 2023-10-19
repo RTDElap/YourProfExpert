@@ -9,14 +9,14 @@ public class ProfessionsService : IProfessionsService
 {
     // long = int, userId = текущая страница
     private readonly IDictionary<long, int> _usersPages;
-    private readonly int _ProfessionsPerPage;
+    private readonly int _professionsPerPage;
 
-    private Profession[]? _Professions;
+    private Profession[] _professions;
 
     public ProfessionsService(int ProfessionsPerPage = 5)
     {
         _usersPages = new Dictionary<long, int>();
-        _ProfessionsPerPage = ProfessionsPerPage;
+        _professionsPerPage = ProfessionsPerPage;
     }
  
     public void ClosePage(long userId)
@@ -26,7 +26,7 @@ public class ProfessionsService : IProfessionsService
 
     public int CountOfPages()
     {
-        double countOfPages = (double) _Professions.Length / _ProfessionsPerPage;
+        double countOfPages = (double) _professions.Length / _professionsPerPage;
 
         // Если деление целочисленно, то нужно вернуть результат деления
         // Если нет, то вернуть инкрементированное значение
@@ -37,9 +37,9 @@ public class ProfessionsService : IProfessionsService
 
     public IEnumerable<Profession> GetProfessionsFromPage(long userId)
     {
-        return _Professions
-            .Skip( _ProfessionsPerPage * _usersPages[userId] )
-            .Take( _ProfessionsPerPage );
+        return _professions
+            .Skip( _professionsPerPage * _usersPages[userId] )
+            .Take( _professionsPerPage );
     }
 
     public bool IsUserOpenPage(long userId)
@@ -78,12 +78,12 @@ public class ProfessionsService : IProfessionsService
 
     public void SetProfessions(Profession[] Professions)
     {
-        _Professions = Professions;
+        _professions = Professions;
     }
 
     public bool TrySelectProfession(long userId, int indexOfProfession, out Profession? Profession)
     {
-        if ( indexOfProfession < 0 || indexOfProfession < _ProfessionsPerPage - 1 )
+        if ( indexOfProfession < 0 || indexOfProfession < _professionsPerPage - 1 )
         {
             Profession = null;
 

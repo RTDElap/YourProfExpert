@@ -37,7 +37,8 @@ public partial class TestService : ITestService
                 ( 
                     p => 
                         p.Result.Test.Title == testTitle &&
-                        p.User.Id == userId
+                        p.User.Id == userId,
+                    token
                 );
         }
     }

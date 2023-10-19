@@ -11,13 +11,8 @@ public class KlimovTest : FunctionalTest
         _random = random ?? new Random();
     }
 
-    public KlimovTest(IList<Question> questions, Random? random = null) : base(KlimovTestData.KLIMOV_TITLE, KlimovTestData.KLIMOV_DESCRIPTION)
-    {
-        _random = random ?? new Random();
-    }
-
     public override TestExecutor CreateExecutor()
     {
-        return new KlimovTestExecutor( new KlimovTest(_random) );
+        return new KlimovTestExecutor( this, _random );
     }
 }

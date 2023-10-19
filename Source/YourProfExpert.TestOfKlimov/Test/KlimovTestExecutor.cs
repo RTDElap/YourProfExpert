@@ -1,5 +1,3 @@
-#nullable disable
-
 using YourProfExpert.Core.Tests;
 using YourProfExpert.Core.Tests.Builders;
 
@@ -22,8 +20,10 @@ public class KlimovTestExecutor : TestExecutor
     
     private readonly int[] _scores = new int[KlimovTestData.RESULTS_COUNT];
 
-    public KlimovTestExecutor(KlimovTest test) : base(test)
+    public KlimovTestExecutor(KlimovTest test, Random? random = null) : base(test)
     {
+        _random = random ?? new Random(); 
+
         var questionsBuilder = new QuestionsBuilder( _questions );
 
         /// Ознакомиться с методичкой можно здесь: https://www.kurgancollege.ru/upload/docs/test.pdf

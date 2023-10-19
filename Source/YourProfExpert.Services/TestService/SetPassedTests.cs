@@ -73,7 +73,7 @@ public partial class TestService : ITestService
         {
             var user = await context
                 .Users
-                .SingleOrDefaultAsync(u => u.Id == userId);
+                .SingleOrDefaultAsync(u => u.Id == userId, token);
 
             if ( user is null ) return false;    
 
@@ -84,7 +84,8 @@ public partial class TestService : ITestService
                 (
                     a => 
                         a.Test.Title == testTitle &&
-                        a.OrderId == orderId
+                        a.OrderId == orderId,
+                    token
                 );
 
             if ( availableResult is null ) return false;
@@ -98,7 +99,8 @@ public partial class TestService : ITestService
                 (
                     p =>
                         p.User.Id == userId &&
-                        p.Result.Test.Title == testTitle
+                        p.Result.Test.Title == testTitle,
+                    token
                 );
 
             // Если пользователь не проходил тест, добавить
@@ -112,7 +114,8 @@ public partial class TestService : ITestService
                         {
                             User = user,
                             Result = availableResult
-                        }
+                        },
+                        token
                     );
             }
             // Если пользователь существует, то обновить результат
@@ -122,7 +125,7 @@ public partial class TestService : ITestService
                     .Result = availableResult;
             }
 
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(token);
         }
 
         return true;

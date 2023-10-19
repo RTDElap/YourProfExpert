@@ -47,11 +47,12 @@ public interface IExecutorTestService
     public IEnumerable<string> GetAnswers(long userId);
 
     /// <summary>
-    /// Позволяет выбрать ответ на вопрос
+    /// Позволяет выбрать ответ на вопрос и после этого переходит к следующему вопросу
     /// </summary>
     /// <param name="userId">Пользователь</param>
     /// <param name="index">Индекс ответа</param>
-    public void SelectAnswer(long userId, int index);
+    /// <returns>Флаг, указывающий на успешность выбора ответа</returns>
+    public bool TrySelectAnswer(long userId, int index);
 
     /// <summary>
     /// Определяет закончились ли вопросы у теста
@@ -60,13 +61,21 @@ public interface IExecutorTestService
     /// <returns>Флаг, указывающий на отсутствие доступных вопросов в тесте</returns>
     public bool IsEnd(long userId);
 
+    /// <summary>
+    /// Проверяет начал ли пользователь тест
+    /// </summary>
+    /// <param name="userId">Пользователь</param>
+    /// <returns>Флаг, указывающий начал ли пользователь тест</returns>
+    public bool IsUserStartTest(long userId);
+
     // Sync методы
 
     /// <summary>
     /// Сохраняет результат в базу данных
     /// </summary>
     /// <param name="userId">Пользователь</param>
-    public void SaveResult(long userId);
+    /// <returns>Флаг, указывающий на успешность операции</returns>
+    public bool SaveResult(long userId);
 
     // Async методы
 
@@ -74,5 +83,6 @@ public interface IExecutorTestService
     /// Сохраняет результат в базу данных
     /// </summary>
     /// <param name="userId">Пользователь</param>
-    public void SaveResultAsync(long userId);
+    /// <returns>Флаг, указывающий на успешность операции</returns>
+    public Task<bool> SaveResultAsync(long userId, CancellationToken token);
 }

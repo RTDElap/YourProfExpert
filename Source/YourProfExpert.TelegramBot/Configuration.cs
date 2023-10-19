@@ -52,7 +52,7 @@ internal static partial class Program
         container.AddSingleton<IProfessionsService, ProfessionsService>();
 
         container.AddSingleton<ITestService, TestService>();
-        container.AddSingleton<IExecutorTestService, Ex>();
+        container.AddSingleton<IExecutorTestService, ExecutorTestService>();
     }
 
     internal static (Dictionary<string, IRunnable> MessageCommands, Dictionary<string, IRunnable> callbackCommands) CreateCommands(IServiceProvider container)
