@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using YourProfExpert.Core.Services;
 using YourProfExpert.Infrastructure.Models;
 
@@ -10,11 +11,18 @@ public partial class TestService : ITestService
     {
         using ( var context = _creator.CreateContext() )
         {
+            _logger.LogDebug($"Попытка установить результат теста {testTitle} (результат с номером {orderId}) для пользователя {userId}");
+
             var user = context
                 .Users
                 .SingleOrDefault(u => u.Id == userId);
 
-            if ( user is null ) return false;    
+            if ( user is null )
+            {
+                _logger.LogDebug($"Пользователь {userId} не найден");
+            
+                return false;
+            }    
 
             var availableResult = context
                 .AvailableTestResults
@@ -26,7 +34,12 @@ public partial class TestService : ITestService
                         a.OrderId == orderId
                 );
 
-            if ( availableResult is null ) return false;
+            if ( availableResult is null )
+            {
+                _logger.LogDebug($"Не найден AvailableResult теста {testTitle} с порядковым номером {orderId}");
+
+                return false;
+            }
 
             var passedTestOfUser = context
                 .PassedTests
@@ -43,6 +56,8 @@ public partial class TestService : ITestService
             // Если пользователь не проходил тест, добавить
             if ( passedTestOfUser is null )
             {
+                _logger.LogDebug($"Добавление нового результата для пользователя {userId}");
+
                 context
                     .PassedTests
                     .Add
@@ -57,6 +72,8 @@ public partial class TestService : ITestService
             // Если пользователь существует, то обновить результат
             else
             {
+                _logger.LogDebug($"Замена результата для пользователя {userId}");
+
                 passedTestOfUser
                     .Result = availableResult;
             }
@@ -71,11 +88,18 @@ public partial class TestService : ITestService
     {
         using ( var context = _creator.CreateContext() )
         {
+            _logger.LogDebug($"Попытка установить результат теста {testTitle} (результат с номером {orderId}) для пользователя {userId}");
+
             var user = await context
                 .Users
                 .SingleOrDefaultAsync(u => u.Id == userId, token);
 
-            if ( user is null ) return false;    
+            if ( user is null )
+            {
+                _logger.LogDebug($"Пользователь {userId} не найден");
+
+                return false;
+            }
 
             var availableResult = await context
                 .AvailableTestResults
@@ -88,7 +112,12 @@ public partial class TestService : ITestService
                     token
                 );
 
-            if ( availableResult is null ) return false;
+            if ( availableResult is null )
+            {
+                _logger.LogDebug($"Не найден AvailableResult теста {testTitle} с порядковым номером {orderId}");
+
+                return false;
+            }
 
             var passedTestOfUser = await context
                 .PassedTests
@@ -106,6 +135,8 @@ public partial class TestService : ITestService
             // Если пользователь не проходил тест, добавить
             if ( passedTestOfUser is null )
             {
+                _logger.LogDebug($"Добавление нового результата для пользователя {userId}");
+
                 await context
                     .PassedTests
                     .AddAsync
@@ -121,6 +152,8 @@ public partial class TestService : ITestService
             // Если пользователь существует, то обновить результат
             else
             {
+                _logger.LogDebug($"Замена результата для пользователя {userId}");
+
                 passedTestOfUser
                     .Result = availableResult;
             }

@@ -92,6 +92,6 @@ public class BotBuilder
 
         IUpdateHandler updateHandler = new UpdateHandler( HandlerBuilder.Build() );
 
-        return new Bot(BotConfig, updateHandler);
+        return new Bot(BotConfig, updateHandler, ServiceProvider);
     }
 }

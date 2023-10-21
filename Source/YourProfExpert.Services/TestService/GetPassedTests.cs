@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using YourProfExpert.Core.Services;
 using YourProfExpert.Infrastructure.Models;
 
@@ -10,6 +11,8 @@ public partial class TestService : ITestService
     {
         using ( var context = _creator.CreateContext() )
         {
+            _logger.LogDebug($"Попытка получить результат теста {testTitle} пользователя {userId}");
+
             return context
                 .PassedTests
                 .Include(p => p.User)
@@ -28,6 +31,8 @@ public partial class TestService : ITestService
     {
         using ( var context = _creator.CreateContext() )
         {
+            _logger.LogDebug($"Попытка получить результат теста {testTitle} пользователя {userId}");
+
             return await context
                 .PassedTests
                 .Include(p => p.User)

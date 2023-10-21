@@ -8,7 +8,6 @@ using YourProfExpert.Core.Services;
 using YourProfExpert.TestOfKlimov;
 using YourProfExpert.Infrastructure.Contexts.Creators.Interfaces;
 using Microsoft.Extensions.Logging;
-using System.Security.Cryptography.X509Certificates;
 
 namespace YourProfExpert.TelegramBot;
 
@@ -26,7 +25,9 @@ internal static partial class Program
         botBuilder.Services
             .AddLogging
             (
-                l => l.AddConsole()
+                l => l
+                    .AddConsole()
+                    .SetMinimumLevel(LogLevel.Trace)
             );
 
         botBuilder

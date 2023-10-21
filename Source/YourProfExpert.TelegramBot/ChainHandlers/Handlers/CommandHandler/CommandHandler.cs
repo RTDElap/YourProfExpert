@@ -1,5 +1,6 @@
 
 
+using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -13,11 +14,15 @@ namespace YourProfExpert.TelegramBot.ChainHandlers.Handlers;
 /// </summary>
 public class CommandHandler : Handler, ICommandHandler
 {
+    private readonly ILogger<CommandHandler> _logger;
+
     private IDictionary<string, IRunnable> _messageCommands;
     private IDictionary<string, IRunnable> _callbackCommands;
 
-    public CommandHandler()
+    public CommandHandler(ILogger<CommandHandler> logger)
     { 
+        _logger = logger;
+
         _messageCommands = new Dictionary<string, IRunnable>();
         _callbackCommands = new Dictionary<string, IRunnable>();
     }
@@ -29,6 +34,8 @@ public class CommandHandler : Handler, ICommandHandler
 
     private async Task<bool> HandleMessageAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, string? commandName = null)
     {
+        _logger.LogDebug($"Сообщение: {update.Message?.Text ?? update.Message?.Caption}");
+
         string? message = update.Message?.Text ?? update.Message?.Caption;
 
         if ( message is null ) return false;
@@ -45,6 +52,8 @@ public class CommandHandler : Handler, ICommandHandler
 
     private async Task<bool> HandleCallbackQueryAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, string? commandName = null)
     {
+        _logger.LogDebug($"Сообщение: {update.CallbackQuery?.Data}");
+
         string? message = update.CallbackQuery?.Data; 
 
         if ( message is null ) return false;

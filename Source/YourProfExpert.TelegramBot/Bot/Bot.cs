@@ -1,7 +1,9 @@
-
-
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
+
+using YourProfExpert.Auxiliary;
 using YourProfExpert.TelegramBot.Configs;
 
 namespace YourProfExpert.TelegramBot.Bot;
@@ -16,14 +18,17 @@ public class Bot
     public CancellationToken CancellationToken { get => _source.Token; }
 
     public readonly BotConfig BotConfig;
+    public readonly IServiceProvider ServiceProvider;
     public readonly ITelegramBotClient BotClient;
     public readonly IUpdateHandler UpdateHandler;
 
-    public Bot(BotConfig config, IUpdateHandler updateHandler)
+    public Bot(BotConfig config, IUpdateHandler updateHandler, IServiceProvider serviceProvider)
     {
         _source = new();
 
         UpdateHandler = updateHandler;
+
+        ServiceProvider = serviceProvider;
 
         BotConfig = config;
 
@@ -36,6 +41,15 @@ public class Bot
     /// </summary>
     public void StartAsLongPolling()
     {
+        var user = BotClient.GetMeAsync().Result;
+
+        ServiceProvider.GetService<ILogger<Bot>>()
+            .LogInformation
+            (
+                $"Запуск бота: {Helper.GetFullNameUser(user)}"
+            );
+            
+
         BotClient.StartReceiving
         (
             updateHandler: UpdateHandler,
