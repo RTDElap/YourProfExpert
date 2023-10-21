@@ -3,17 +3,24 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using YourProfExpert.TelegramBot.ChainHandlers.Handlers.Interfaces;
 using YourProfExpert.TelegramBot.Commands;
 
 namespace YourProfExpert.TelegramBot.ChainHandlers.Handlers;
 
-public class CommandHandler : Handler
+/// <summary>
+/// Реализует маршрутизатор функциональных (с бизнес-логикой) команд бота
+/// </summary>
+public class CommandHandler : Handler, ICommandHandler
 {
-    private Dictionary<string, IRunnable> _messageCommands;
-    private Dictionary<string, IRunnable> _callbackCommands;
+    private IDictionary<string, IRunnable> _messageCommands;
+    private IDictionary<string, IRunnable> _callbackCommands;
 
     public CommandHandler()
-    { }
+    { 
+        _messageCommands = new Dictionary<string, IRunnable>();
+        _callbackCommands = new Dictionary<string, IRunnable>();
+    }
 
     private string[] GetArguments(string message)
     {
@@ -80,5 +87,19 @@ public class CommandHandler : Handler
                 await HandleCallbackQueryAsync(botClient, update, cancellationToken, commandName);
             break;
         }
+    }
+
+    public ICommandHandler SetCallbackCommands(IDictionary<string, IRunnable> callbackCommands)
+    {
+        _callbackCommands = callbackCommands;
+
+        return this;
+    }
+
+    public ICommandHandler SetMessageCommands(IDictionary<string, IRunnable> messageCommands)
+    {
+        _messageCommands = messageCommands;
+
+        return this;
     }
 }

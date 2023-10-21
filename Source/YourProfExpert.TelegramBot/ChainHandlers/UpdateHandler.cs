@@ -6,6 +6,9 @@ using YourProfExpert.TelegramBot.ChainHandlers.Handlers;
 
 namespace YourProfExpert.TelegramBot.ChainHandlers;
 
+/// <summary>
+/// Класс для обработки Update'ов
+/// </summary>
 public class UpdateHandler : IUpdateHandler
 {
     private readonly Handler _handler;
