@@ -9,27 +9,24 @@ namespace YourProfExpert.TelegramBot.ChainHandlers.Handlers;
 
 public class CommandHandler : Handler
 {
-    private readonly Dictionary<string, IRunnable> _messageCommands;
-    private readonly Dictionary<string, IRunnable> _callbackCommands;
+    private Dictionary<string, IRunnable> _messageCommands;
+    private Dictionary<string, IRunnable> _callbackCommands;
 
-    public CommandHandler(Dictionary<string, IRunnable> messageCommands, Dictionary<string, IRunnable> callbackCommands)
-    {
-        _messageCommands = messageCommands;
-        _callbackCommands = callbackCommands;
-    }
+    public CommandHandler()
+    { }
 
     private string[] GetArguments(string message)
     {
         return message.Split(' ', StringSplitOptions.RemoveEmptyEntries);
     }
 
-    private async Task<bool> HandleMessageAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    private async Task<bool> HandleMessageAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, string? commandName = null)
     {
         string? message = update.Message?.Text ?? update.Message?.Caption;
 
         if ( message is null ) return false;
 
-        if ( _messageCommands.TryGetValue( message, out IRunnable? runnable ) && runnable is not null )
+        if ( _messageCommands.TryGetValue( commandName ?? message, out IRunnable? runnable ) && runnable is not null )
         {
             await runnable.RunFromMessageAsync(botClient, update, cancellationToken, GetArguments(message) );
 
@@ -39,7 +36,7 @@ public class CommandHandler : Handler
         return false;
     }
 
-    private async Task<bool> HandleCallbackQueryAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    private async Task<bool> HandleCallbackQueryAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, string? commandName = null)
     {
         string? message = update.CallbackQuery?.Data; 
 
@@ -47,7 +44,7 @@ public class CommandHandler : Handler
 
         string[] args = GetArguments(message);
 
-        if ( _messageCommands.TryGetValue( args[0], out IRunnable? runnable ) && runnable is not null )
+        if ( _callbackCommands.TryGetValue( commandName ?? args[0], out IRunnable? runnable ) && runnable is not null )
         {
             await runnable.RunFromCallbackAsync(botClient, update, cancellationToken, args );
 
@@ -69,5 +66,19 @@ public class CommandHandler : Handler
         }
 
         return false;
+    }
+
+    public async Task RedirectTo(string commandName, ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    {
+        switch ( update.Type )
+        {
+            case UpdateType.Message:
+                await HandleMessageAsync(botClient, update, cancellationToken, commandName);
+            break;
+
+            case UpdateType.CallbackQuery:
+                await HandleCallbackQueryAsync(botClient, update, cancellationToken, commandName);
+            break;
+        }
     }
 }

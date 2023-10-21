@@ -29,19 +29,6 @@ public static partial class KlimovExtensions
     }
 
     /// <summary>
-    /// Добавляет в ITestService тест Климова, что делает его доступным для прохождения
-    /// </summary>
-    /// <param name="testService">Любой объект типа TestService</param>
-    /// <param name="random">Объект Random для случайного выбора вопроса</param>
-    /// <returns>Объект, к которому был применен</returns>
-    public static ITestService AddKlimovTestAsync(this ITestService testService, Random? random = null)
-    {
-        testService.AddTest( new KlimovTest(random) );
-
-        return testService;
-    }
-
-    /// <summary>
     /// Добавляет в базу данных данные теста, если это необходимо
     /// </summary>
     /// <param name="context"></param>

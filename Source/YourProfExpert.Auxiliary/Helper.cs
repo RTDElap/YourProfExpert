@@ -80,27 +80,27 @@ public static class Helper
     /// <summary>
     /// Вспомогательный метод, который создает клавиатуру с возможностью перемещения
     /// </summary>
-    /// <param name="jobs">Список специальностей</param>
+    /// <param name="Professions">Список специальностей</param>
     /// <param name="withButtonNext"></param>
     /// <param name="withButtonBack"></param>
     /// <returns></returns>
-    public static InlineKeyboardMarkup CreateInlineKeyboardWithJobs
+    public static InlineKeyboardMarkup CreateInlineKeyboardWithProfessions
     (
-        IEnumerable<Job> jobs,
+        IEnumerable<Profession> Professions,
         bool withButtonNext = false,
         bool withButtonBack = false
     )
     {
         int count = -1;
-        var buttons = new List<InlineKeyboardButton[]>( jobs.Count() );
+        var buttons = new List<InlineKeyboardButton[]>( Professions.Count() );
 
-        foreach (var job in jobs)
+        foreach (var Profession in Professions)
         {
-            buttons.Add( new[] { CreateInlineButton(job.Name, $"/selectJob {++count}") } );
+            buttons.Add( new[] { CreateInlineButton(Profession.Name, $"/selectProfession {++count}") } );
         }
 
-        if (withButtonNext) buttons.Add(new[] { CreateInlineButton("Следующая", "/nextJobs") });
-        if (withButtonBack) buttons.Add(new[] { CreateInlineButton("Предыдущая", "/backJobs") });
+        if (withButtonNext) buttons.Add(new[] { CreateInlineButton("Следующая", "/nextProfessions") });
+        if (withButtonBack) buttons.Add(new[] { CreateInlineButton("Предыдущая", "/backProfessions") });
 
         return new InlineKeyboardMarkup(buttons);
     }
