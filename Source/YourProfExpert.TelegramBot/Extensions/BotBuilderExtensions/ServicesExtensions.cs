@@ -10,10 +10,11 @@ using YourProfExpert.Services;
 using YourProfExpert.TelegramBot.Bot.Builders;
 using YourProfExpert.TelegramBot.ChainHandlers.Handlers;
 using YourProfExpert.TelegramBot.ChainHandlers.Handlers.Interfaces;
+using YourProfExpert.TelegramBot.Commands;
 
 namespace YourProfExpert.TelegramBot.Extensions;
 
-public static class BotBuilderExtensions
+public static partial class BotBuilderExtensions
 {
     /// <summary>
     /// Регистрирует реализацию IContextCreator в виде SqliteCreator 
@@ -90,17 +91,15 @@ public static class BotBuilderExtensions
     }
 
     /// <summary>
-    /// Добавляет зарегистрированный ICommandHandler в цепочку обработчиков.
-    /// Этот метод инициализирует ServiceProvider
+    /// Регистрирует реализацию IUserService
     /// </summary>
     /// <param name="botBuilder"></param>
     /// <returns></returns>
-    public static BotBuilder UseCommandHandler(this BotBuilder botBuilder)
+    public static BotBuilder AddUserService(this BotBuilder botBuilder)
     {
-        var commandHandler = botBuilder.ServiceProvider.GetService<ICommandHandler>() as Handler;
-
-        botBuilder.HandlerBuilder
-            .AddHandler(commandHandler);
+        botBuilder
+            .Services
+            .AddSingleton<IUserService, UserService>();
 
         return botBuilder;
     }

@@ -16,15 +16,13 @@ public class CommandHandler : Handler, ICommandHandler
 {
     private readonly ILogger<CommandHandler> _logger;
 
-    private IDictionary<string, IRunnable> _messageCommands;
-    private IDictionary<string, IRunnable> _callbackCommands;
+    private IDictionary<string, IRunnable> _commands;
 
     public CommandHandler(ILogger<CommandHandler> logger)
     { 
         _logger = logger;
 
-        _messageCommands = new Dictionary<string, IRunnable>();
-        _callbackCommands = new Dictionary<string, IRunnable>();
+        _commands = new Dictionary<string, IRunnable>();
     }
 
     public override async Task<bool> ProcessAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -45,47 +43,22 @@ public class CommandHandler : Handler, ICommandHandler
     {
         var args = GetArguments(commandName);
 
-        var commandDictionary = update.Type switch
-        {
-            UpdateType.Message => _messageCommands,
-            UpdateType.CallbackQuery => _callbackCommands,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        Func<IRunnable, Task> functionWithCommand = update.Type switch
-        {
-            UpdateType.Message => (IRunnable command) => command.RunFromMessageAsync(botClient, update, cancellationToken, args),
-            UpdateType.CallbackQuery => (IRunnable command) => command.RunFromCallbackAsync(botClient, update, cancellationToken, args),
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        if ( update.Type == UpdateType.CallbackQuery )
-        {
-            commandName = args[0];
-        }
-
         await HandleUpdateAsync
         (
             botClient,
             update,
             cancellationToken,
-            commandName,
+            args[0],
             args,
-            commandDictionary,
-            functionWithCommand 
+            _commands,
+            cmd => cmd.RunFromCallbackAsync(botClient, update, cancellationToken, args) 
         );
     }
 
-    public ICommandHandler SetCallbackCommands(IDictionary<string, IRunnable> callbackCommands)
+    public ICommandHandler AddCommand(IRunnable command, string[] names)
     {
-        _callbackCommands = callbackCommands;
-
-        return this;
-    }
-
-    public ICommandHandler SetMessageCommands(IDictionary<string, IRunnable> messageCommands)
-    {
-        _messageCommands = messageCommands;
+        foreach ( var name in names)
+            _commands.Add(name, command);
 
         return this;
     }
@@ -105,7 +78,7 @@ public class CommandHandler : Handler, ICommandHandler
             cancellationToken,
             message,
             args,
-            _messageCommands,
+            _commands,
             command => command.RunFromMessageAsync(botClient, update, cancellationToken, args) 
         );
     }
@@ -125,7 +98,7 @@ public class CommandHandler : Handler, ICommandHandler
             cancellationToken,
             args[0],
             args,
-            _callbackCommands,
+            _commands,
             command => command.RunFromCallbackAsync(botClient, update, cancellationToken, args) 
         );
     }

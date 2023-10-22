@@ -41,6 +41,6 @@ public class CommandRedirectDialog : IRunnable
 
     public Task RunFromMessageAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, string[] args)
     {
-        throw new NotSupportedException();
+        return Task.CompletedTask;
     }
 }

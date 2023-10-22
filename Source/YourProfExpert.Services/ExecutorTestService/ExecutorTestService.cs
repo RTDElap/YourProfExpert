@@ -58,7 +58,7 @@ public class ExecutorTestService : IExecutorTestService
     {
         _logger.LogDebug($"{userId} проверяет конец {_usersTests[userId].Test.Title}");
 
-        return _usersTests[userId]
+        return ! _usersTests[userId]
             .CanMoveNext();
     }
 
@@ -111,5 +111,12 @@ public class ExecutorTestService : IExecutorTestService
 
         return
             await _testService.TrySetUserPassedTestAsync(userId, executor.Test.Title, executor.GetResult(), token );
+    }
+
+    public string GetTestTitleOfUser(long userId)
+    {
+        return _usersTests[userId]
+            .Test
+            .Title;
     }
 }

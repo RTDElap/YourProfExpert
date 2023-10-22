@@ -8,6 +8,7 @@ using YourProfExpert.Core.Services;
 using YourProfExpert.TestOfKlimov;
 using YourProfExpert.Infrastructure.Contexts.Creators.Interfaces;
 using Microsoft.Extensions.Logging;
+using YourProfExpert.TelegramBot.Commands;
 
 namespace YourProfExpert.TelegramBot;
 
@@ -18,10 +19,13 @@ internal static partial class Program
         var botBuilder = new BotBuilder();
 
 #region Регистрация сервисов
+
+        // Чтение и инициализация конфига
         botBuilder
             .ReadConfigFrom( Path.Combine( Environment.CurrentDirectory, "appsettings.json" ) )
             .AddBotConfig();
 
+        // Настройка логирования
         botBuilder.Services
             .AddLogging
             (
@@ -30,11 +34,13 @@ internal static partial class Program
                     .SetMinimumLevel(LogLevel.Trace)
             );
 
+        // Регистрация сервисов
         botBuilder
             .AddSqliteCreator("Sqlite")
             .AddTestService()
             .AddExecutorTestService()
             .AddProfessionsService()
+            .AddUserService()
             .AddCommandHandler();
 #endregion
 
@@ -44,19 +50,30 @@ internal static partial class Program
 #endregion
 
 #region Настройка зарегистрированных сервисов
-        var commands = CreateCommands( botBuilder.ServiceProvider );
+        
+        // Добавление команд в ICommandHandler
+        botBuilder
+            .AddCustomCommand<CommandTest>("/test", $"📄 {KlimovTestData.KLIMOV_TITLE}")
+            .WithCreateUser()
+            .Build();
 
+        botBuilder
+            .AddCommand<CommandStart>("/start", "🏠 Главная", "🏠 В главное меню")
+            .AddCommand<CommandAbout>("👤 О боте")
+            .AddCommand<CommandTests>("/tests", "📄 Тесты")
+            .AddCommand<CommandRedirectDialog>("/dialog")
+            .AddCommand<CommandSelectAnswer>("/selectAnswer");
+
+        // Добавление записей в базу данных
         await botBuilder.ServiceProvider.GetService<IContextCreator>()
             .CreateContext()
             .AddKlimovTestAsync();
 
+        // Добавление данных с тестами в ITestService
         botBuilder.ServiceProvider.GetService<ITestService>()
             .AddKlimovTest();
 
-        botBuilder.ServiceProvider.GetService<ICommandHandler>()
-            .SetMessageCommands(commands.MessageCommands)
-            .SetCallbackCommands(commands.CallbackCommands);
-
+        // Установка значений с профессиями
         botBuilder.ServiceProvider.GetService<IProfessionsService>()
             .SetProfessions( botBuilder.BotConfig.Professions );
 #endregion

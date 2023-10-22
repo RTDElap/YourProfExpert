@@ -65,6 +65,13 @@ public interface IExecutorTestService
     /// <returns>Флаг, указывающий начал ли пользователь тест</returns>
     public bool IsUserStartTest(long userId);
 
+    /// <summary>
+    /// Возвращает название теста, который проходит пользователь
+    /// </summary>
+    /// <param name="userId">Пользователь</param>
+    /// <returns>Название теста</returns>
+    public string GetTestTitleOfUser(long userId);
+
     // Sync методы
 
     /// <summary>

@@ -20,7 +20,7 @@ public class CommandAbout : IRunnable
 
     public Task RunFromCallbackAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, string[] args)
     {
-        throw new NotSupportedException();
+        return Task.CompletedTask;
     }
 
     public async Task RunFromMessageAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, string[] args)
