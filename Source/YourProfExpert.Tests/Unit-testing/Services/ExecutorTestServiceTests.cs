@@ -14,10 +14,10 @@ public class ExecutorTestService_Tests
         creatorMock.Object.CreateContext()
            .AddKlimovTest();
 
-        ITestService testService = new TestService(creatorMock.Object)
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>())
             .AddKlimovTest();
 
-        IExecutorTestService executorTestService = new ExecutorTestService(testService);
+        IExecutorTestService executorTestService = new ExecutorTestService(testService, Logger.CreateMock<ExecutorTestService>());
 
         var test = testService.GetTestOrDefault( KlimovTestData.KLIMOV_TITLE );
         
@@ -45,10 +45,10 @@ public class ExecutorTestService_Tests
             .AddAvailableTestResult(4, 1, 4, "Человек", "")
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object)
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>())
             .AddKlimovTest();
 
-        IExecutorTestService executorTestService = new ExecutorTestService(testService);
+        IExecutorTestService executorTestService = new ExecutorTestService(testService, Logger.CreateMock<ExecutorTestService>());
 
         var test = testService.GetTestOrDefault( KlimovTestData.KLIMOV_TITLE );
         

@@ -7,7 +7,7 @@ public class ProfessionsService_Tests
     [Fact]
     public void CountOfPages_if_count_is_Even()
     {
-        IProfessionsService professionsService = new ProfessionsService();
+        IProfessionsService professionsService = new ProfessionsService(Logger.CreateMock<ProfessionsService>());
 
         var professionArray = Enumerable.Range(0, 10).Select( i => new Profession() { Name = $"{i}", Description = $"{i}" } ).ToArray();
 
@@ -25,7 +25,7 @@ public class ProfessionsService_Tests
     [Fact]
     public void CountOfPages_if_count_is_not_Even()
     {
-        IProfessionsService professionsService = new ProfessionsService();
+        IProfessionsService professionsService = new ProfessionsService(Logger.CreateMock<ProfessionsService>());
 
         var professionArray = Enumerable.Range(0, 11).Select( i => new Profession() { Name = $"{i}", Description = $"{i}" } ).ToArray();
 
@@ -43,7 +43,7 @@ public class ProfessionsService_Tests
     [Fact]
     public void GetProfessionsFromPage_first_page()
     {
-        IProfessionsService professionsService = new ProfessionsService();
+        IProfessionsService professionsService = new ProfessionsService(Logger.CreateMock<ProfessionsService>());
         professionsService.SetProfessions( new Profession[] { new Profession{ Name = "1", Description = "1" } } );
         professionsService.OpenPage(1);
 
@@ -60,7 +60,7 @@ public class ProfessionsService_Tests
     [Fact]
     public void GetProfessionsFromPage_first_page_with_check_data()
     {
-        IProfessionsService professionsService = new ProfessionsService();
+        IProfessionsService professionsService = new ProfessionsService(Logger.CreateMock<ProfessionsService>());
         
         var professionArray = Enumerable.Range(0, 11).Select( i => new Profession() { Name = $"{i}", Description = $"{i}" } ).ToArray();
         
@@ -78,7 +78,7 @@ public class ProfessionsService_Tests
     [Fact]
     public void GetProfessionsFromPage_last_page_with_check_count_of_pages()
     {
-        IProfessionsService professionsService = new ProfessionsService();
+        IProfessionsService professionsService = new ProfessionsService(Logger.CreateMock<ProfessionsService>());
         
         var professionArray = Enumerable.Range(0, 11).Select( i => new Profession() { Name = $"{i}", Description = $"{i}" } ).ToArray();
         
@@ -99,7 +99,7 @@ public class ProfessionsService_Tests
     [Fact]
     public void GetProfessionsFromPage_last_page_with_check_data()
     {
-        IProfessionsService professionsService = new ProfessionsService();
+        IProfessionsService professionsService = new ProfessionsService(Logger.CreateMock<ProfessionsService>());
         
         var professionArray = Enumerable.Range(0, 11).Select( i => new Profession() { Name = $"{i}", Description = $"{i}" } ).ToArray();
         

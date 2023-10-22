@@ -8,7 +8,7 @@ public class TestService_Tests
     [Fact]
     public void GetAvailableTests_with_klimov_test()
     {
-        ITestService testService = new TestService( ContextBuilder.CreateBuilder().Build().Object );
+        ITestService testService = new TestService( ContextBuilder.CreateBuilder().Build().Object, Logger.CreateMock<TestService>() );
 
         testService.AddKlimovTest();
 
@@ -21,7 +21,7 @@ public class TestService_Tests
     [Fact]
     public void GetTestOrDefault_correct()
     {
-        ITestService testService = new TestService( ContextBuilder.CreateBuilder().Build().Object );
+        ITestService testService = new TestService( ContextBuilder.CreateBuilder().Build().Object, Logger.CreateMock<TestService>() );
 
         testService.AddKlimovTest();
 
@@ -34,7 +34,7 @@ public class TestService_Tests
     [Fact]
     public void GetTestOrDefault_incorrect()
     {
-        ITestService testService = new TestService( ContextBuilder.CreateBuilder().Build().Object );
+        ITestService testService = new TestService( ContextBuilder.CreateBuilder().Build().Object, Logger.CreateMock<TestService>() );
 
         testService.AddKlimovTest();
 
@@ -53,7 +53,7 @@ public class TestService_Tests
             .AddPassedTest(1, 1, 1)
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         var passedTest = testService.GetUserPassedTestOrDefault(1, "Тест");
 
@@ -73,7 +73,7 @@ public class TestService_Tests
             .AddPassedTest(1, 1, 1)
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         var passedTest = testService.GetUserPassedTestOrDefault(2, "Тест");
 
@@ -90,7 +90,7 @@ public class TestService_Tests
             .AddPassedTest(1, 1, 1)
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         var passedTest = testService.GetUserPassedTestOrDefault(2, "IncorrectTestName");
 
@@ -106,7 +106,7 @@ public class TestService_Tests
             .AddAvailableTestResult(1, 1, 1, "Прошел", "Прошел")
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         bool result = testService.TrySetUserPassedTest(1, "Тест", 1);
 
@@ -124,7 +124,7 @@ public class TestService_Tests
             .AddPassedTest(1, 1, 1)
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         bool result = testService.TrySetUserPassedTest(1, "Тест", 2);
 
@@ -141,7 +141,7 @@ public class TestService_Tests
             .AddPassedTest(1, 1, 1)
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         bool result = testService.TrySetUserPassedTest(1, "Тест1", 1);
 
@@ -158,7 +158,7 @@ public class TestService_Tests
             .AddPassedTest(1, 1, 1)
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         bool result = testService.TrySetUserPassedTest(1, "Тест1", 2);
 
@@ -175,7 +175,7 @@ public class TestService_Tests
             .AddPassedTest(1, 1, 1)
             .Build();
 
-        ITestService testService = new TestService(creatorMock.Object);
+        ITestService testService = new TestService(creatorMock.Object, Logger.CreateMock<TestService>());
 
         bool result = testService.TrySetUserPassedTest(15, "Тест1", 2);
 
