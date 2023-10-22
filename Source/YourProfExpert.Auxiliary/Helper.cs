@@ -1,4 +1,6 @@
+using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using YourProfExpert.Core.Types;
 
@@ -121,5 +123,40 @@ public static class Helper
         }
 
         return new InlineKeyboardMarkup(buttons);
+    }
+
+    /// <summary>
+    /// Отправляет пользователю сообщение с inline клавиатурой с двумя значениями: "Да" и "Нет" 
+    /// </summary>
+    /// <param name="botClient"></param>
+    /// <param name="message"></param>
+    /// <param name="chatId"></param>
+    /// <param name="commandOnYes"></param>
+    /// <param name="commandOnNo"></param>
+    /// <returns></returns>
+    public static async Task SendMessageWithDialog(ITelegramBotClient botClient, string message, long chatId, string commandOnYes, string commandOnNo)
+    {
+        var inlineKeyboard = new InlineKeyboardMarkup
+        (
+            new List<List<InlineKeyboardButton>>()
+            {
+                new List<InlineKeyboardButton>() 
+                {  
+                    CreateInlineButton("Да", $"/dialog {commandOnYes}")
+                },
+                new List<InlineKeyboardButton>() 
+                {  
+                    CreateInlineButton("Нет", $"/dialog {commandOnNo}")
+                }
+            }
+        );
+
+        await botClient.SendTextMessageAsync
+        (
+            text: message,
+            chatId: chatId,
+            replyMarkup: inlineKeyboard,
+            parseMode: ParseMode.Html
+        );
     }
 }

@@ -9,7 +9,7 @@ public class KlimovTestData
 {
     public const int RESULTS_COUNT = 5;
 
-    public const string KLIMOV_TITLE = "Климова";
+    public const string KLIMOV_TITLE = "Тест Климова";
     public const string KLIMOV_DESCRIPTION = 
         "Этот тест поможет вам определить группу профессий, " +
         "которая подойдет вам лучше всего.\n\n<b>Инструкция</b>" + 

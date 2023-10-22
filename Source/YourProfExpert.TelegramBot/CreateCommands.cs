@@ -20,11 +20,63 @@ internal static partial class Program
         IDictionary<string, IRunnable> messageCommands = new Dictionary<string, IRunnable>();
         IDictionary<string, IRunnable> callbackCommands = new Dictionary<string, IRunnable>();
     
-        var commandStart = ActivatorUtilities.CreateInstance<CommandStart>(serviceProvider);
+        AddCommandStart(serviceProvider, messageCommands, callbackCommands);
+        AddCommandAbout(serviceProvider, messageCommands, callbackCommands);
+        AddCommandDialog(serviceProvider, messageCommands, callbackCommands);
 
-        messageCommands["/start"] = commandStart;
-        callbackCommands["/start"] = commandStart;
+        AddCommandTests(serviceProvider, messageCommands, callbackCommands);
 
         return (messageCommands, callbackCommands);
+    }
+
+    internal static void AddCommandStart
+    (
+        IServiceProvider serviceProvider, 
+        IDictionary<string, IRunnable> messageCommands, 
+        IDictionary<string, IRunnable> callbackCommands
+    )
+    {
+        var commandStart = ActivatorUtilities.CreateInstance<CommandStart>(serviceProvider);
+
+        callbackCommands["/start"] = commandStart;
+        messageCommands["/start"] = commandStart;
+        messageCommands["🏠 Главная"] = commandStart;
+        messageCommands["🏠 В главное меню"] = commandStart;
+    }
+
+    internal static void AddCommandAbout
+    (
+        IServiceProvider serviceProvider, 
+        IDictionary<string, IRunnable> messageCommands, 
+        IDictionary<string, IRunnable> callbackCommands
+    )
+    {
+        var commandAbout = ActivatorUtilities.CreateInstance<CommandAbout>(serviceProvider);
+
+        messageCommands["👤 О боте"] = commandAbout;
+    }
+
+    internal static void AddCommandTests
+    (
+        IServiceProvider serviceProvider, 
+        IDictionary<string, IRunnable> messageCommands, 
+        IDictionary<string, IRunnable> callbackCommands
+    )
+    {
+        var commandTests = ActivatorUtilities.CreateInstance<CommandTests>(serviceProvider);
+
+        messageCommands["📄 Тесты"] = commandTests;
+    }
+
+    internal static void AddCommandDialog
+    (
+        IServiceProvider serviceProvider, 
+        IDictionary<string, IRunnable> messageCommands, 
+        IDictionary<string, IRunnable> callbackCommands
+    )
+    {
+        var commandRedirectDialog = ActivatorUtilities.CreateInstance<CommandRedirectDialog>(serviceProvider);
+
+        callbackCommands["/dialog"] = commandRedirectDialog;
     }
 }

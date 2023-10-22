@@ -110,7 +110,7 @@ public class ProfessionsService : IProfessionsService
         _professions = Professions;
     }
 
-    public bool TrySelectProfession(long userId, int indexOfProfession, out Profession? Profession)
+    public bool TrySelectProfession(long userId, int indexOfProfession, out Profession Profession)
     {
         if ( indexOfProfession < 0 || indexOfProfession < _professionsPerPage - 1 )
         {

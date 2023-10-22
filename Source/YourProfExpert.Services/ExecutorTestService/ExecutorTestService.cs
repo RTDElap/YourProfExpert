@@ -64,7 +64,7 @@ public class ExecutorTestService : IExecutorTestService
 
     public bool IsUserStartTest(long userId)
     {
-        _logger.LogDebug($"{userId} проверяет наличие TestExecutor {_usersTests[userId].Test.Title}");
+        _logger.LogDebug($"{userId} проверяет наличие TestExecutor");
 
         return _usersTests.ContainsKey(userId);
     }
