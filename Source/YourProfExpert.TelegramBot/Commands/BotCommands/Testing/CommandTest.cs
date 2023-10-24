@@ -72,6 +72,8 @@ public class CommandTest : IRunnable
                 commandOnYes: $"/test {testTitle}",
                 commandOnNo: "/tests"
             );
+
+            return;
         }
 
         if ( _executorTestService.IsUserStartTest(userId) )
@@ -146,8 +148,6 @@ public class CommandTest : IRunnable
             _logger.LogCritical($"Не удалось изменить сообщение: {ex.Message}");
         }
     }
-
-    
 
     private async Task SendErrorWithTestAsync(ITelegramBotClient botClient, long chatId)
     {

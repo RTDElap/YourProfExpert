@@ -35,6 +35,24 @@ public static partial class BotBuilderExtensions
     }
 
     /// <summary>
+    /// Регистрирует реализацию IContextCreator в виде SqlCreator
+    /// </summary>
+    /// <param name="botBuilder"></param>
+    /// <param name="nameOfConnectionString">Название строки подключения в конфиге</param>
+    /// <returns></returns>
+    public static BotBuilder AddSqlCreator(this BotBuilder botBuilder, string nameOfConnectionString)
+    {
+        botBuilder
+            .Services
+            .AddSingleton<IContextCreator>
+            (
+                x => new SqlServerContextCreator( botBuilder.ConfigurationRoot.GetConnectionString(nameOfConnectionString) )
+            );
+
+        return botBuilder;
+    }
+
+    /// <summary>
     /// Регистрирует реализацию IExecutorTestService
     /// </summary>
     /// <param name="botBuilder"></param>

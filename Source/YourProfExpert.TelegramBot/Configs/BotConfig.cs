@@ -9,11 +9,27 @@ namespace YourProfExpert.TelegramBot.Configs;
 
 public class BotConfig
 {
+    /// <summary>
+    /// Api ключ для телеграмм бота
+    /// </summary>
+    /// <value></value>
     [JsonInclude]
     public string KeyApi { get; set; }
 
+    /// <summary>
+    /// Список специальностей с их характеристиками
+    /// </summary>
+    /// <value></value>
     [JsonInclude]
     public Profession[] Professions { get; set; }
+
+    /// <summary>
+    /// Определяет какую базу данных использовать.
+    /// Название ConnectionString (в одноименной секции json-файла) должно обязательно совпадать с ним
+    /// </summary>
+    /// <value></value>
+    [JsonInclude]
+    public string DatabaseType { get; set; }
 
     [JsonIgnore]
     public IDictionary<string, string> TextMessages { get; set; }

@@ -18,9 +18,15 @@ public class UpdateHandler : IUpdateHandler
         _handler = handler;
     }
 
-    public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+    public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception? exception, CancellationToken cancellationToken)
     {
-        Console.WriteLine(exception.Message);
+        
+        while ( exception is not null )
+        {
+            Console.WriteLine($"{exception.Message}");
+
+            exception = exception.InnerException;
+        }
 
         return Task.CompletedTask;
     }

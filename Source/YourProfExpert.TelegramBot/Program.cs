@@ -9,6 +9,7 @@ using YourProfExpert.TestOfKlimov;
 using YourProfExpert.Infrastructure.Contexts.Creators.Interfaces;
 using Microsoft.Extensions.Logging;
 using YourProfExpert.TelegramBot.Commands;
+using YourProfExpert.TelegramBot.Configs;
 
 namespace YourProfExpert.TelegramBot;
 
@@ -36,7 +37,7 @@ internal static partial class Program
 
         // Регистрация сервисов
         botBuilder
-            .AddSqliteCreator("Sqlite")
+            .AddSqlCreator( nameOfConnectionString: botBuilder.BotConfig.DatabaseType )
             .AddTestService()
             .AddExecutorTestService()
             .AddProfessionsService()

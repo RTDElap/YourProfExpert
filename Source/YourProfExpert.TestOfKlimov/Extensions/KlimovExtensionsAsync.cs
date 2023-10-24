@@ -64,5 +64,7 @@ public static partial class KlimovExtensions
         }
 
         await context.SaveChangesAsync();
+
+        await context.DisposeAsync();
     }
 }
