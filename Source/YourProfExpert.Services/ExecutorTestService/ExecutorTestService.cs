@@ -58,7 +58,7 @@ public class ExecutorTestService : IExecutorTestService
     {
         _logger.LogDebug($"{userId} проверяет конец {_usersTests[userId].Test.Title}");
 
-        return ! _usersTests[userId]
+        return _usersTests[userId]
             .CanMoveNext();
     }
 
